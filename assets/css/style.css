@@ -1,0 +1,45 @@
+html,  body{
+	margin-top: 0px;
+	margin-left: 50px;
+	margin-right: 50px;
+
+}
+
+body{
+	background-image: url("http://ak3.picdn.net/shutterstock/videos/22760863/thumb/12.jpg");
+	background-size: cover;
+	background-repeat: repeat-x;
+	background-color: black;
+
+}
+
+header {
+	text-align: center;
+	color: white;	
+	font-family: 'Sofia', cursive;
+/*	font-family: 'Amatic SC', cursive;
+*/	font-size: 75px;
+	margin-top: 100px;
+	background-color: #d62424; 
+    padding: 3px;
+    margin-bottom: 15px;
+
+}
+
+img{
+	max-width: 75%;
+	max-height: 75%
+}
+
+p{
+	color:white;
+	font-size: 30px;
+/*	font-family: 'Sofia', cursive;*/
+	font-family: 'Amatic SC', cursive;
+}
+
+.content{
+	background-color: black;
+	text-align: center;
+}
+
