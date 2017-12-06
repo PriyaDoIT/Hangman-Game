@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hangman</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Sofia" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <header>Holiday Hangman </header>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-md-4">
+                <img class="img-responsive img-center" src="assets/images/hangman.jpg" alt="smimg">
+            </div>
+            <div class="col-md-8">
+                <p>Press ENTER to start new game!</p>
+                <p id="wins"></p>
+                <p>Current Word:</p>
+                <p id="game"></p>
+                <p id="guessre"></p>
+                <script type="text/javascript">
+                // Word Choices
+                // var words =["angels","bells","blitzen","candles","candy","cards","cedar","celebrate","chimney","cold","Comet","cookies","cupid","dancer","dasher","december","decorations","dolls","donner","dressing","eggnog","elves","family","festival","Frosty","fruitcake","gifts","goodwill","greetings","happy","holiday","holly","holy","icicles","jolly","lights","lists","merry","miracle","mistletoe","noel","pageant","parades","party","pie","pine","poinsettia","prancer","presents","pudding","pumpkin pie","punch","reindeer","ribbon","rudolph","sacred","sales","Scrooge","season","sled","sleigh","snowflakes","spirit","star","stickers","stocking","tidings","tinsel","togetherness","toys","tradition","traffic","tree","trips","turkey","vacation","vixen","winter","worship","wreath","yule","yuletide","santa"];
+
+                var words = ["snowflakes"]
+
+
+                var wins = 0;
+                console.log(wins);
+                var guesses = 7;
+                	
+                var guessesList = [];
+
+
+                // Pick a random word
+               
+                var word = words[Math.floor(Math.random() * words.length)];
+
+                console.log(word)
+
+                // Set up the answer array
+                var answerArray = [];
+                for (var i = 0; i < word.length; i++) {
+                    answerArray[i] = "_";
+                }
+                var remainingLetters = word.length;
+
+
+
+                document.onkeyup = function(event) {
+                    var guess = event.key;
+                    console.log(guess);
+                    
+                    //if guess not in string word
+                    if (word.indexOf(guess) === -1) {
+                        console.log('wrong guess');
+                        guesses--;
+                        if (guessesList.indexOf(guess) === -1) {
+                            // guesses--;
+                            guessesList.push(guess);
+                            console.log(guessesList)
+                        } else {
+                            alert('You already guess that!')
+                        }
+
+                    }
+                    //correct guess 
+                    else {
+                        console.log('right guess')
+                        if (guessesList.indexOf(guess) === -1) {
+                            
+                            guessesList.push(guess);
+                            for (var j = 0; j < word.length; j++) {
+                                if (word[j] === guess) {
+                                    answerArray[j] = guess;
+                                    console.log(answerArray);
+                                    remainingLetters--;
+                                }
+                            }
+                            if (guesses > 0) {
+                                document.getElementById("game").innerHTML = answerArray.join(" ");
+                            }
+                            if (remainingLetters === 0 || guesses === 0) {
+                                console.log('endgame')
+                                if (remainingLetters > 0) {
+                                    alert("you lost");
+                                } else if (remainingLetters === 0) {
+                                   
+                                    document.getElementById("wins").innerHTML = ("Number of wins: " + wins++);
+                                }
+                            }
+                        } else {
+                        	alert('You already guesses that!');
+                        }
+
+                    }
+                }
+                </script>
+</body>
+
+</html>
+</script>
+</div>
+</div>
+</div>
+</body>
+
+</html>
