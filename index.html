@@ -19,49 +19,116 @@
 					<img class="img-responsive img-center" src="assets/images/hangman.jpg" alt="smimg"> 
 				</div>
 				<div class="col-md-8">
-					<script type="text/javascript">
-						// Word Choices
-						var xmas =["angels","bells","Blitzen","candles","candy","cards","cedar","celebrate","chimney","cold","Comet","cookies","Cupid","Dancer","Dasher","December","decorations","dolls","Donner","dressing","eggnog","elves","family","festival","Frosty","fruitcake","gifts","goodwill","greetings","happy","holiday","holly","holy","icicles","jolly","lights","lists","merry","miracle","mistletoe","Noel","pageant","parades","party","pie","pine","poinsettia","Prancer","presents","pudding","pumpkin pie","punch","reindeer","ribbon","Rudolph","sacred","sales","Scrooge","season","sled","sleigh","snowflakes","spirit","star","stickers","stocking","tidings","tinsel","togetherness","toys","tradition","traffic","tree","trips","turkey","vacation","Vixen","Winter","worship","wreath","yule","yuletide","Santa"];
+					<div id="static">
+						<p>Press any key to get started!</p>
+						<p>Current Word</p>
+						<p id= "answerArray"></p>
+					</div>
+					<p id="game"></p>
+				</div>	
+				
 
-						// //Variables for number of wins and remaining tries
-						// var wins = 0;
-						// var remaining=7;
+	<script type="text/javascript">
+		// Word Choices
+		// var words =["angels","bells","Blitzen","candles","candy","cards","cedar","celebrate","chimney","cold","Comet","cookies","Cupid","Dancer","Dasher","December","decorations","dolls","Donner","dressing","eggnog","elves","family","festival","Frosty","fruitcake","gifts","goodwill","greetings","happy","holiday","holly","holy","icicles","jolly","lights","lists","merry","miracle","mistletoe","Noel","pageant","parades","party","pie","pine","poinsettia","Prancer","presents","pudding","pumpkin pie","punch","reindeer","ribbon","Rudolph","sacred","sales","Scrooge","season","sled","sleigh","snowflakes","spirit","star","stickers","stocking","tidings","tinsel","togetherness","toys","tradition","traffic","tree","trips","turkey","vacation","Vixen","Winter","worship","wreath","yule","yuletide","Santa"];
 
-						// Press any key to begin
-						// document.onekeyup = function(event){
+		var words =["Blitzen","JOLLY" , "December"];
+		
 
-						// Determines which key was pressed
-						// var userGuess = event.key;
-
-						// Randomly chooses a word from the Word Choices array. 
-							var word = xmas[Math.floor(Math.random() * xmas.length)];
-								console.log(word);
-
-							var blanks = word.length
-								console.log(blanks);
-							
-
-							function repeatStringNumTimes(str, num) {
-							  return str;
-							}
-							repeatStringNumTimes("_", blanks);
-								
-
-
-
-
-
-
-						// }
-
-
-					</script>
-				</div>
-
-
-		</div>
-	</div>
+		var wins = 0
+			console.log(wins);
+		var guesses = 7;
+		var guessesList = [];
+		var correctList = [];
 	
+	    // Pick a random word
+	    
+        var word = words[Math.floor(Math.random() * words.length)].toLowerCase();
+        	console.log(word);	
+
+        // Set up the answer array
+	    var answerArray = [];
+	    for (var i = 0; i < word.length; i++) {
+	        answerArray[i] = "_";
+	    }
+	    var remainingLetters = word.length;
+	    
+
+	    //Reset Function
+	    var reset = function(){
+	    	guesses =7;
+	    	guessesList.length = 0;
+	    	correctList.length =0;
+	    	word = words[Math.floor(Math.random() * words.length)].toLowerCase();
+	    		console.log("new word "+ word)
+	    	answerArray = [];
+	    		for (var j = 0; j < word.length; j++) {
+	        		answerArray[j] = "_";
+	    }
+	    	remainingLetters = word.length;
+	    
+	    	document.getElementById("answerArray").innerHTML = answerArray.join(" ");
+	    	
+	    }	
+	    //Game Function	
+		document.onkeyup = function(event) {
+
+            var guess = event.key.toLowerCase();
+            //If guess not in string 'word', subtract from guesses and push to display to incorrect guessesList
+            if (word.indexOf(guess) === -1) {
+                  	console.log('wrong guess');
+                  	--guesses;
+                  	guessesList.push(guess);
+				}
+				//if guess is in string'word' then check each blank space and update with guess
+				else {
+				
+					for (var i = 0; i < word.length; i++) {
+	            		if (word[i] === guess) {
+	                    	answerArray[i] = guess;
+	                        	console.log(answerArray);
+	                    	remainingLetters--;
+	                    console.log("remaining letters: "+ remainingLetters);
+						}
+		            		
+		            }
+            	}
+            	if (remainingLetters >= 0) {
+		 			document.getElementById("answerArray").innerHTML = answerArray.join(" ");
+	   			}
+
+	   			//Outcomes
+	            if (remainingLetters === 0){
+	            	wins++;
+	            	alert("you win!");
+	            	reset();	
+	            }
+	            
+	            if (guesses === 0){
+	            	alert("you lost, try again")
+	            	reset();
+	            }
+
+	            var html=
+	            	"<p> Wins: " + wins + "</p>" +
+	            	// "<p> Current Word:</p>" +
+	            	// // "<p>" + answerArray + "</p>" +
+	            	"<p> Number of guesses remaining: " + guesses +"</p>" +
+	            	"<p> Letters guessed: " + guessesList + "</p>";
+
+	            
+	            document.querySelector("#game").innerHTML = html;
+	};
+	
+
+	
+            
+    </script>
+
 </body>
+
 </html>
+ 
+
+		
 
