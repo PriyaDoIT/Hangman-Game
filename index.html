@@ -20,7 +20,7 @@
 				</div>
 				<div class="col-md-8">
 					<div id="static">
-						<p>Press any key to get started!</p>
+						<p>Press a letter to get started!</p>
 						<p>Current Word</p>
 						<p id= "answerArray"></p>
 					</div>
@@ -30,20 +30,18 @@
 
 	<script type="text/javascript">
 		// Word Choices
-		// var words =["angels","bells","Blitzen","candles","candy","cards","cedar","celebrate","chimney","cold","Comet","cookies","Cupid","Dancer","Dasher","December","decorations","dolls","Donner","dressing","eggnog","elves","family","festival","Frosty","fruitcake","gifts","goodwill","greetings","happy","holiday","holly","holy","icicles","jolly","lights","lists","merry","miracle","mistletoe","Noel","pageant","parades","party","pie","pine","poinsettia","Prancer","presents","pudding","pumpkin pie","punch","reindeer","ribbon","Rudolph","sacred","sales","Scrooge","season","sled","sleigh","snowflakes","spirit","star","stickers","stocking","tidings","tinsel","togetherness","toys","tradition","traffic","tree","trips","turkey","vacation","Vixen","Winter","worship","wreath","yule","yuletide","Santa"];
+		var words =["angels","bells","Blitzen","candles","candy","cards","cedar","celebrate","chimney","cold","Comet","cookies","Cupid","Dancer","Dasher","December","decorations","dolls","Donner","dressing","eggnog","elves","family","festival","Frosty","fruitcake","gifts","goodwill","greetings","happy","holiday","holly","holy","icicles","jolly","lights","lists","merry","miracle","mistletoe","Noel","pageant","parades","party","pie","pine","poinsettia","Prancer","presents","pudding","pumpkin pie","punch","reindeer","ribbon","Rudolph","sacred","sales","Scrooge","season","sled","sleigh","snowflakes","spirit","star","stickers","stocking","tidings","tinsel","togetherness","toys","tradition","traffic","tree","trips","turkey","vacation","Vixen","Winter","worship","wreath","yule","yuletide","Santa"];
 
-		var words =["Blitzen","JOLLY" , "December"];
-		
+	
 
 		var wins = 0
 			console.log(wins);
 		var guesses = 7;
 		var guessesList = [];
-		var correctList = [];
 	
 	    // Pick a random word
 	    
-        var word = words[Math.floor(Math.random() * words.length)].toLowerCase();
+        var word = words[Math.floor(Math.random() * words.length)].toLowerCase();;
         	console.log(word);	
 
         // Set up the answer array
@@ -58,7 +56,6 @@
 	    var reset = function(){
 	    	guesses =7;
 	    	guessesList.length = 0;
-	    	correctList.length =0;
 	    	word = words[Math.floor(Math.random() * words.length)].toLowerCase();
 	    		console.log("new word "+ word)
 	    	answerArray = [];
@@ -75,24 +72,34 @@
 
             var guess = event.key.toLowerCase();
             //If guess not in string 'word', subtract from guesses and push to display to incorrect guessesList
-            if (word.indexOf(guess) === -1) {
+
+            if (word.indexOf(guess) === -1 && guessesList.indexOf(guess) === -1 ) {
                   	console.log('wrong guess');
-                  	--guesses;
-                  	guessesList.push(guess);
-				}
-				//if guess is in string'word' then check each blank space and update with guess
+	                    guessesList.push(guess);
+	                    console.log(guessesList)
+	                    --guesses;
+	        }
+
+			//if guess is in string'word' then check each blank space and update with guess
 				else {
-				
-					for (var i = 0; i < word.length; i++) {
-	            		if (word[i] === guess) {
-	                    	answerArray[i] = guess;
-	                        	console.log(answerArray);
-	                    	remainingLetters--;
-	                    console.log("remaining letters: "+ remainingLetters);
+					if (guessesList.indexOf(guess) === -1) {                       
+                            guessesList.push(guess);
+					
+						for (var i = 0; i < word.length; i++) {
+		            		if (word[i] === guess) {
+		                    	answerArray[i] = guess;
+		                        	console.log(answerArray);
+		                    	remainingLetters--;
+		                   		 	console.log("remaining letters: "+ remainingLetters);
+							}
 						}
-		            		
-		            }
+					}
+						else {
+	                    alert('You already guessed that!')
+	                }
+		            		  
             	}
+
             	if (remainingLetters >= 0) {
 		 			document.getElementById("answerArray").innerHTML = answerArray.join(" ");
 	   			}
@@ -118,7 +125,8 @@
 
 	            
 	            document.querySelector("#game").innerHTML = html;
-	};
+};
+
 	
 
 	
